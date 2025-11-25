@@ -12,26 +12,28 @@ export function renderError(container, message) {
 // Renderiza o perfil e os repositórios
 export function renderProfile(container, userData, userRepos) {
 
-    const repositoriesHTML = userRepos.length > 0 ? userRepos.map(repo => `
+    const repositoriesHTML = userRepos && userRepos.length > 0 ? userRepos.map(repo => `
+    <a href="${repo.html_url}" target="_blank">
         <div class="repo-card">
-             <h3>${repo.name}</h3>
-            <div class="repo-stats">
-                <span>🍴 Forks: ${repo.forks_count}</span>
-                <span>⭐ Stars: ${repo.stargazers_count}</span>
-                <span>👀 Watchers: ${repo.watchers_count}</span>
-                <span>💻 Linguagem: ${repo.language || 'Não Informado'}</span>
-             </div>
+            <div class="repo-title"> ${repo.name} </div>
+            <div class="repo-badges">
+                <div class="repo-badge">🍴 Forks: ${repo.forks_count}</div>
+                <div class="repo-badge">⭐ Stars: ${repo.stargazers_count}</div>
+                <div class="repo-badge">👀 Watchers: ${repo.watchers_count}</div>
+                <div class="repo-badge">💻 Linguagem: ${repo.language || 'Não Informado'}</div>
+            </div>
         </div>
-
+    </a>
     `).join('') : `<p> Este usuário não possui repositórios públicos.</p>`;
 
     container.innerHTML = `
+        <div class="profile-card">
+
             <img src="${userData.avatar_url}" alt="Avatar de ${userData.login}" class="profile-avatar">
-            <div> 
-                <h2>${userData.name || userData.login}</h2>
-                <p>${userData.bio || 'Não possui bio cadastrada 😢.'}</p>
-            </div>
-        </> 
+            <h2>${userData.name || userData.login}</h2>
+            <p>${userData.bio || 'Não possui bio cadastrada 😢.'}</p>
+
+        </div>
         <div class="profile-counters">
             <div class="followers">
                 <h4> Seguidores 👥 </h4>   
@@ -42,11 +44,12 @@ export function renderProfile(container, userData, userRepos) {
                 <span> ${userData.following} </span>
             </div>
         </div>
-
-            <h2> Repositórios </h2>
-            <div class="repositories">
-                ${repositoriesHTML}
-            </div>
-        `;
+        <div class="tittle-repos"> 
+             <h2> 📃 Repositórios </h2> 
+        </div>
+        <div class="repositories">
+            ${repositoriesHTML}
+        </div>
+    `;
 }
 

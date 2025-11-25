@@ -16,7 +16,7 @@ export async function fetchUser (userName) {
 
 export async function fetchUserRepos (userName) {
 
-    const response = await fetch(`${baseUrl}/users/${userName}/repos?per_page=10`);
+    const response = await fetch(`${baseUrl}/users/${userName}/repos?per_page=10&sort=created`);
     if (!response.ok) {
 
        throw new Error ('Repositórios não encontrados');
