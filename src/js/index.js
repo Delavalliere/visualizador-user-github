@@ -34,6 +34,12 @@ btnSearch.addEventListener('click', async () => {
 
 });
 
+inputSearch.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        btnSearch.click();
+    }
+});
+
 
 
 
